@@ -1,6 +1,7 @@
 // const config = {} // тоже самое что и module.exports
 const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 require("@babel/polyfill");
 
 module.exports = {
@@ -13,6 +14,8 @@ module.exports = {
     },
     plugins: [new HtmlWebpackPlugin({
         template: path.resolve(__dirname,'src/index.html')
+    }),new MiniCssExtractPlugin({
+        filename: '[name].[contenthash:8].css',
     })],
     devServer: {
         static: {
@@ -49,7 +52,7 @@ module.exports = {
             },
             {
                 test: /\.s[ac]ss$/i,
-                use: ["style-loader", "css-loader","sass-loader"],
+                use: [MiniCssExtractPlugin.loader, "css-loader","sass-loader"],
             },
             {
                 test: /\.(png|jpe?g|gif)$/i,
