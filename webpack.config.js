@@ -6,7 +6,7 @@ require("@babel/polyfill");
 
 module.exports = {
     mode:'development',
-    entry: ["@babel/polyfill",'./src/index.js'],
+    entry: ["@babel/polyfill",'./src/index.tsx'],
     output: {
         filename: "[name].[contenthash].js",
         path: path.resolve(__dirname,'dist'),
@@ -18,6 +18,7 @@ module.exports = {
         filename: '[name].[contenthash:8].css',
     })],
     devServer: {
+        https:true,
         static: {
             directory: path.join(__dirname, 'dist'),
         },
@@ -26,14 +27,14 @@ module.exports = {
         port: 9000,
     },
     resolve: {
-        extensions: ['.jsx','.js'],
+        extensions: ['.tsx', '.ts', '.js'],
         preferAbsolute: true,
         modules: [path.resolve(__dirname,'src'), 'node_modules'],
     },
     module: {
         rules: [
             {
-                test: /\.(js|jsx)$/,
+                test: /\.(jsx?|tsx?)$/,
                 exclude: /node_modules/,
                 use: {
                     loader: "babel-loader",
